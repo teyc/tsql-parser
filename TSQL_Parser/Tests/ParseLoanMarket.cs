@@ -43,24 +43,45 @@ namespace Tests
             // int lastPos = 0;
             foreach (var statement in statements)
             {
-               try
-               {
-                 Console.WriteLine("------------");
-                 Console.WriteLine(storedProc.Substring(statement.BeginPosition, statement.Length));
-               }
-               catch (System.Exception)
-               {
+                try
+                {
+                    Console.WriteLine("------------");
+                    Console.WriteLine(storedProc.Substring(statement.BeginPosition, statement.Length));
+                }
+                catch (System.Exception)
+                {
 
                     Console.WriteLine("xxxxxx");
-               }
-                // Console.WriteLine("\nLine {0} to {1}",
-                //     ToLineNumbers(statement.BeginPosition + lastPos, storedProc),
-                //     ToLineNumbers(statement.EndPosition + lastPos, storedProc));
-                // foreach (var token in statement.Tokens)
-                // {
-                //     Console.Write(token.Text + " ");
-                // }
-                // lastPos += statement.EndPosition;
+                }
+                WriteLineNumbers(storedProc, statement);
+            }
+        }
+
+        [Test]
+        public void ParseCase()
+        {
+            const string sql = @"SELECT DISTINCT ISNULL((
+                           CASE 1
+                               WHEN 2
+                                   THEN 2
+                               ELSE 3
+                               END
+                           ), '') AS F
+FROM FAMILY_LOAN AS FL";
+
+            List<TSQLStatement> statements = TSQLStatementReader.ParseStatements(sql,
+              useQuotedIdentifiers: false, includeWhitespace: true);
+
+        }
+
+        private void WriteLineNumbers(string storedProc, TSQLStatement statement)
+        {
+            Console.WriteLine("\nLine {0} to {1}",
+                ToLineNumbers(statement.BeginPosition, storedProc),
+                ToLineNumbers(statement.EndPosition, storedProc));
+            foreach (var token in statement.Tokens)
+            {
+                Console.Write(token.Text + " ");
             }
         }
 
