@@ -14,7 +14,7 @@ namespace TSQL.Statements.Parsers
 			Tokenizer = tokenizer;
 		}
 
-		public TSQLUnknownStatementParser(List<TSQLToken> startTokens, ITSQLTokenizer tokenizer) :
+		public TSQLUnknownStatementParser(IList<TSQLToken> startTokens, ITSQLTokenizer tokenizer) :
 			this(tokenizer)
 		{
 			Statement.Tokens.AddRange(startTokens);

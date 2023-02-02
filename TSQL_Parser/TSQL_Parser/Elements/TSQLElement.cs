@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,17 @@ namespace TSQL.Elements
 {
 	public abstract class TSQLElement
 	{
-		private readonly List<TSQLToken> _tokens = new List<TSQLToken>();
+		class TokenCollection: Collection<TSQLToken>
+		{
+			protected override void InsertItem(int index, TSQLToken item)
+			{
+				if (item == null) throw new Exception("Must not insert nulls!");
+			}
 
-		public List<TSQLToken> Tokens
+		}
+		private readonly TokenCollection _tokens = new TokenCollection();
+
+		public IList<TSQLToken> Tokens
 		{
 			get
 			{

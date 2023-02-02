@@ -36,7 +36,7 @@ namespace Tests.Tokens
 			CompareTokenLists(expected, lexer.ToList());
 		}
 
-		public static void CompareTokenLists(List<TSQLToken> expected, List<TSQLToken> actual)
+		public static void CompareTokenLists(List<TSQLToken> expected, IList<TSQLToken> actual)
 		{
 			Assert.AreEqual(expected == null, actual == null);
 			if (expected != null && actual != null)

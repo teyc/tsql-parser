@@ -60,7 +60,7 @@ namespace Tests.Expressions
 
 			Assert.AreEqual(1, statements.Count);
 
-			List<TSQLToken> tokens = statements[0].Tokens;
+			IList<TSQLToken> tokens = statements[0].Tokens;
 
 			TokenComparisons.CompareTokenLists(
 				new List<TSQLToken>()

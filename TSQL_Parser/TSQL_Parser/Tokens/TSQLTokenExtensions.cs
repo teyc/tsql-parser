@@ -9,6 +9,14 @@ namespace TSQL.Tokens
 	// using static extension methods instead of instance methods allows us to check against null
 	public static class TSQLTokenExtensions
 	{
+		public static void AddRange(this IList<TSQLToken> tokens, IEnumerable<TSQLToken> toBeAdded)
+		{
+			foreach (var i in toBeAdded)
+			{
+				tokens.Add(i);
+			}
+		}
+
 		public static bool IsKeyword(this TSQLToken token, TSQLKeywords keyword)
 		{
 			if (token == null)

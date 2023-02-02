@@ -106,7 +106,7 @@ namespace TSQL.Tokens.Parsers
 
 		public static void ReadCommentsAndWhitespace(
 			ITSQLTokenizer tokenizer,
-			List<TSQLToken> savedTokens)
+			IList<TSQLToken> savedTokens)
 		{
 			while (tokenizer.Current.IsWhitespace() ||
 				tokenizer.Current.IsComment())
@@ -119,7 +119,7 @@ namespace TSQL.Tokens.Parsers
 
 		public static void ReadThroughAnyCommentsOrWhitespace(
 			ITSQLTokenizer tokenizer,
-			List<TSQLToken> savedTokens)
+			IList<TSQLToken> savedTokens)
 		{
 			while (
 				tokenizer.MoveNext() &&
