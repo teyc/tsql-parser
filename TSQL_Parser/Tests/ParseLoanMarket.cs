@@ -60,13 +60,13 @@ namespace Tests
         [Test]
         public void ParseCase()
         {
-            const string sql = @"SELECT DISTINCT ISNULL((
+            const string sql = @"SELECT ISNULL(
                            CASE 1
                                WHEN 2
                                    THEN 2
                                ELSE 3
                                END
-                           ), '') AS F
+                           , '')
 FROM FAMILY_LOAN AS FL";
 
             List<TSQLStatement> statements = TSQLStatementReader.ParseStatements(sql,
