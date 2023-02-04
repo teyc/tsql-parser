@@ -60,7 +60,7 @@ namespace Tests
         [Test]
         public void ParseCase()
         {
-            const string sql = @"SELECT ISNULL( CASE 1 WHEN 2 THEN 2 ELSE 3 END, '') FROM THETABLE";
+            const string sql = @"SELECT ISNULL( CASE 1 WHEN 2 THEN 2 ELSE 3 END , '') FROM THETABLE";
 
             List<TSQLStatement> statements = TSQLStatementReader.ParseStatements(sql,
               useQuotedIdentifiers: false, includeWhitespace: true);
