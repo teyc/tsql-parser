@@ -41,19 +41,16 @@ namespace Tests
                 useQuotedIdentifiers: false, includeWhitespace: false);
 
             // int lastPos = 0;
+            WriteStatements(statements, storedProc);
+        }
+
+        private void WriteStatements(List<TSQLStatement> statements, string rawSql)
+        {
             foreach (var statement in statements)
             {
-                try
-                {
-                    Console.WriteLine("------------");
-                    Console.WriteLine(storedProc.Substring(statement.BeginPosition, statement.Length));
-                }
-                catch (System.Exception)
-                {
-
-                    Console.WriteLine("xxxxxx");
-                }
-                WriteLineNumbers(storedProc, statement);
+                Console.WriteLine("------------");
+                Console.WriteLine(rawSql.Substring(statement.BeginPosition, statement.Length));
+                WriteLineNumbers(rawSql, statement);
             }
         }
 
@@ -71,11 +68,29 @@ FROM FAMILY_LOAN AS FL";
 
             List<TSQLStatement> statements = TSQLStatementReader.ParseStatements(sql,
               useQuotedIdentifiers: false, includeWhitespace: true);
+            WriteStatements(statements, sql);
+
+        }
+
+        [Test]
+        public void ParseFunction()
+        {
+            const string sql = @"SELECT DOSTUFF(1,1) FROM THETABLE";
+
+            List<TSQLStatement> statements = TSQLStatementReader.ParseStatements(sql,
+                useQuotedIdentifiers: false, includeWhitespace: true);
+            WriteStatements(statements, sql);
 
         }
 
         private void WriteLineNumbers(string storedProc, TSQLStatement statement)
         {
+            if (statement.Tokens.Count == 0)
+            {
+                Console.WriteLine(statement.Type);
+                return;
+            }
+
             Console.WriteLine("\nLine {0} to {1}",
                 ToLineNumbers(statement.BeginPosition, storedProc),
                 ToLineNumbers(statement.EndPosition, storedProc));

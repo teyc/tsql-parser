@@ -40,6 +40,11 @@ namespace TSQL.Expressions.Parsers
 
 				arguments.Add(argument);
 
+				// TODO
+				// TSQLTokenParserHelper.ReadCommentsAndWhitespace(
+				// 	tokenizer,
+				// 	tokens);
+
 				if (tokenizer.Current.IsCharacter(TSQLCharacters.Comma))
 				{
 					tokens.Add(tokenizer.Current);

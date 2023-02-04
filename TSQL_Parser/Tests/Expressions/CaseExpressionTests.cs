@@ -15,6 +15,23 @@ namespace Tests.Expressions
 	public class CaseExpressionTests
 	{
 		[Test]
+		public void CaseExpression_Multiline()
+		{
+			List<TSQLStatement> statements = TSQLStatementReader.ParseStatements(
+				@"
+					BEGIN
+						SELECT CASE 
+							WHEN 1 = 2 THEN 0 
+							ELSE 1 
+                        END
+					END"
+					// normalizing line endings to unix format to ensure passing
+					// tests in various environments
+					.Replace("\r", ""),
+				includeWhitespace: false);
+		}
+
+		[Test]
 		public void CaseExpression_Dont_Overrun()
 		{
 			List<TSQLStatement> statements = TSQLStatementReader.ParseStatements(
